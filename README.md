@@ -4,7 +4,5 @@
 
 ### API
 
-Contains the OpenAPI specifications of the AEGIS microservices. \
-Naming conventions:
-
+Contains the OpenAPI specifications of the AEGIS microservices.
 
