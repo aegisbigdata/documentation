@@ -1,0 +1,430 @@
+openapi: "3.0.0"
+info:
+  version: 0.1.0
+  title: AEGIS Metadata Store API (draft)
+servers:
+  - url: http://aegis-metadata.fokus.fraunhofer.de/
+paths:
+  /api/catalogs:
+    get:
+      summary: List all catalogues
+      tags:
+        - Catalogues (Projects)
+      responses:
+        '200':
+          description: An array of catalogues
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Catalogs"
+    post:
+      summary: Create a catalogue
+      tags:
+        - Catalogues (Projects)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Catalog"
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CatalogRead"
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/catalogs/{name}:
+    get:
+      summary: Retrieve one catalogue
+      tags:
+        - Catalogues (Projects)
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: The name of the catalogue to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CatalogRead"
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete one catalogue
+      tags:
+        - Catalogues (Projects)
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: The name of the catalogue to delete
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Success
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/datasets:
+    get:
+      summary: List all datasets
+      tags:
+        - Datasets (Data Sets)
+      responses:
+        '200':
+          description: An array of datasets
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Datasets"
+    post:
+      summary: Create a dataset
+      tags:
+        - Datasets (Data Sets)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Dataset"
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DatasetRead"
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/datasets/{name}:
+    get:
+      summary: Retrieve one dataset
+      tags:
+        - Datasets (Data Sets)
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: The name of the dataset to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DatasetRead"
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete one dataset
+      tags:
+        - Datasets (Data Sets)
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: The name of the dataset to delete
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Success
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/datasets/{datasetName}/distributions:
+    get:
+      summary: List all distributions of a dataset
+      tags:
+        - Distributions (Files)
+      parameters:
+        - name: datasetName
+          in: path
+          required: true
+          description: The name of the dataset
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of distributions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Distributions"
+    post:
+      summary: Create a distribution
+      tags:
+        - Distributions (Files) 
+      parameters:
+        - name: datasetName
+          in: path
+          required: true
+          description: The name of the dataset
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Distribution"
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DistributionRead"
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/datasets/{datasetName}/distributions/{distName}:
+    get:
+      summary: Retrieve one distribution
+      tags:
+        - Distributions (Files)
+      parameters:
+        - name: datasetName
+          in: path
+          required: true
+          description: The name of the dataset
+          schema:
+            type: string
+        - name: distName
+          in: path
+          required: true
+          description: The name of the distribution
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DistributionRead"
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Publisher:
+      properties:
+        name:
+          type: string
+          description: "The name of the publisher"
+        homepage:
+          type: string
+          description: "The URL to the homepage of the publisher"
+    ContactPoint:
+      properties:
+        name:
+          type: string
+          description: "The name of the contact point"
+        email:
+          type: string
+          description: "The email address of the contact point"
+    Field:
+      properties:
+        name:
+          type: string
+          description: "The name of the column - hence the value of the first row"
+        number:
+          type: integer
+          description: "The number of the column"
+        description:
+          type: string
+          description: "A description of the column"
+        type:
+          type: string
+          description: "Type of the data in the column, based on JSON Table Schema"
+    Catalog:
+      properties:
+        id:
+          type: string
+          description: "The Hops-ProjectID"
+        title:
+          type: string
+          description: "The title of the catalogue"
+        description:
+          type: string
+          description: "The description of the catalogue"
+        publisher:
+          type: object
+          $ref: "#/components/schemas/Publisher"
+    CatalogRead:
+      allOf:
+        - $ref: "#/components/schemas/Catalog"
+        - type: object
+          properties:
+            uri:
+              type: string
+              description: "The URI of the catalogue in the Linked Data Store"
+            name:
+              type: string
+              description: "Unique name of the catalogue - equals last segment of the URI."
+    Catalogs:
+      properties:
+        count:
+          type: integer
+          description: "Count of results"
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CatalogRead"
+    Dataset:
+      properties:
+        id:
+          type: string
+          description: "The Hops-DatasetID"
+        title:
+          type: string
+          description: "The title of the dataset"
+        description:
+          type: string
+          description: "The description of the dataset"
+        publisher:
+          type: object
+          $ref: "#/components/schemas/Publisher"
+        contact_point:
+          type: object
+          $ref: "#/components/schemas/ContactPoint"
+        keywords:
+          type: array
+          description: "Descriptive keywords of the dataset"
+          items:
+            type: string
+        themes:
+          type: array
+          description: "Themes of the dataset (see http://publications.europa.eu/mdr/resource/authority/data-theme/html/data-theme-eng.html)"
+          items:
+            type: string
+        catalog:
+          type: string
+          description: "Name of the catalog the dataset belongs to"
+    DatasetRead:
+      allOf:
+        - $ref: "#/components/schemas/Dataset"
+        - type: object
+          properties:
+            uri:
+              type: string
+              description: "The URI of the dataset in the Linked Data Store"
+            name:
+              type: string
+              description: "Unique name of the dataset - equals last segment of the URI."
+    Datasets:
+      properties:
+        count:
+          type: integer
+          description: "Count of results"
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/DatasetRead"
+    Distribution:
+      properties:
+        id:
+          type: string
+          description: "The Hops-FileID"
+        title:
+          type: string
+          description: "The title of the distribution"
+        description:
+          type: string
+          description: "The description of the distribution"
+        access_url:
+          type: string
+          description: "The HDFS-URL to the file"
+        format:
+          type: string
+          description: "The format or file type of the file"
+        license:
+          type: string
+          description: "The licence of the file"
+        fields:
+          type: array
+          description: "Describes the schema of a column of a table (see https://frictionlessdata.io/specs/table-schema/)"
+          items:
+            $ref: "#/components/schemas/Field"
+        primary_keys:
+          type: array
+          description: "The name of the fields, which are primary keys"
+          items:
+            type: string
+
+    DistributionRead:
+      allOf:
+        - $ref: "#/components/schemas/Distribution"
+        - type: object
+          properties:
+            uri:
+              type: string
+              description: "The URI of the distribution in the Linked Data Store"
+            name:
+              type: string
+              description: "Unique name of the distribution - equals last segment of the URI."
+            dataset:
+              type: string
+              description: "Unique name of the dataset the distribution belongs to"
+    Distributions:
+      properties:
+        count:
+          type: integer
+          description: "Count of results"
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/DistributionRead"
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        status:
+          type: string
+        message:
+          type: string
