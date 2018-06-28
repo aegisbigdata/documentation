@@ -6,7 +6,7 @@ Visualizer is implemented with python as a Jupyter notebook. Here, we describe h
 
 If the Jupyter notebook does not already exist in a specific project, one should first [download](https://www.github.com/aegisbigdata/visualizer) it. Then, upload the Visualizer.ipynb file into Jupyter from the corresponding menu, as seen in figure below
 
-![Upload Notebook](visualizer-screenshots/9.png)
+![Upload Notebook](/visualizer-screenshots/9.png)
 
 ## STEP 2 - Open the notebook
 
