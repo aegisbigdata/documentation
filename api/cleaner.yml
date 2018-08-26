@@ -1,0 +1,571 @@
+swagger: "2.0"
+info:
+  description: "This is the API documentation of the AEGIS Cleansing tool. The code can be found on [GitHub](https://github.com/aegisbigdata/cleaner)"
+  version: "1.0.0"
+  title: "AEGIS Cleaner"
+  termsOfService: "http://swagger.io/terms/"
+host: "host"
+basePath: "/cleaner/api"
+tags:
+- name: "login"
+  description: "Login endpoint"
+- name: "providers"
+  description: "Managing Providers"
+- name: "datasets"
+  description: "Managing Datasets"
+- name: "variables"
+  description: "Managing Variables"
+- name: "validationRules"
+  description: "Managing Validation Rules"
+- name: "cleaningRules"
+  description: "Managing Cleaning Rules"
+- name: "missingValuesRules"
+  description: "Managing Missing Value Rules"
+- name: "clean"
+  description: "Clean Data"
+schemes:
+- "http"
+paths:
+  /login:
+    post:
+      tags:
+      - "login"
+      summary: "Login to retrieve a valid JWT"
+      description: ""
+      operationId: "login"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Login required body"
+        required: true
+        schema:
+          $ref: "#/definitions/Login"
+      responses:
+        401:
+          description: "Invalid Credentials"
+          schema:
+            $ref: "#/definitions/LoginInvalid"
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/LoginSuccess"
+  /datasets/provider:
+    post:
+      tags: 
+      - "providers"
+      summary: "Add a new provider"
+      description: ""
+      operationId: "addProvider"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Provider add body"
+        required: true
+        schema:
+          $ref: "#/definitions/AddProvider"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+    put:
+      tags: 
+      - "providers"
+      summary: "Update an existing provider"
+      description: ""
+      operationId: "updateProvider"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Provider update body"
+        required: true
+        schema:
+          $ref: "#/definitions/UpdateProvider"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+    delete:
+      tags: 
+      - "providers"
+      summary: "Delete an existing provider"
+      description: ""
+      operationId: "deleteProvider"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Provider delete body"
+        required: true
+        schema:
+          $ref: "#/definitions/AddProvider"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+  /datasets/dataset:
+    post:
+      tags: 
+      - "datasets"
+      summary: "Add a new dataset"
+      description: ""
+      operationId: "addDataset"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Dataset add body"
+        required: true
+        schema:
+          $ref: "#/definitions/AddDataset"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+    put:
+      tags: 
+      - "datasets"
+      summary: "Update an existing dataset"
+      description: ""
+      operationId: "updateDataset"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Dataset update body"
+        required: true
+        schema:
+          $ref: "#/definitions/UpdateDataset"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+    delete:
+      tags: 
+      - "datasets"
+      summary: "Delete an existing dataset"
+      description: ""
+      operationId: "deleteDataset"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Dataset delete body"
+        required: true
+        schema:
+          $ref: "#/definitions/AddDataset"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+  /datasets/variable:
+    post:
+      tags: 
+      - "variables"
+      summary: "Add a new variable"
+      description: ""
+      operationId: "addVariable"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Variable add body"
+        required: true
+        schema:
+          $ref: "#/definitions/AddVariable"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+    put:
+      tags: 
+      - "variables"
+      summary: "Update an existing variable"
+      description: ""
+      operationId: "updateVariable"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Variable update body"
+        required: true
+        schema:
+          $ref: "#/definitions/UpdateVariable"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+    delete:
+      tags: 
+      - "variables"
+      summary: "Delete an existing variable"
+      description: ""
+      operationId: "deleteVariable"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Variable delete body"
+        required: true
+        schema:
+          $ref: "#/definitions/DeleteVariable"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+  /rules/validation:
+    post:
+      tags: 
+      - "validationRules"
+      summary: "Add a new validation rule or update an existing one"
+      description: ""
+      operationId: "addValidationRule"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Validation rule add/update body"
+        required: true
+        schema:
+          $ref: "#/definitions/AddValidationRule"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+    delete:
+      tags: 
+      - "validationRules"
+      summary: "Delete an existing validation rule"
+      description: ""
+      operationId: "deleteValidationRule"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Validation rule delete body"
+        required: true
+        schema:
+          $ref: "#/definitions/DeleteValidationRule"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+  /rules/cleaning:
+    post:
+      tags: 
+      - "cleaningRules"
+      summary: "Add a new cleaning rule or update an existing one"
+      description: ""
+      operationId: "addCleaningRule"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Cleaning rule add/update body"
+        required: true
+        schema:
+          $ref: "#/definitions/AddCleaningRule"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+    delete:
+      tags: 
+      - "cleaningRules"
+      summary: "Delete an existing cleaning rule"
+      description: ""
+      operationId: "deleteCleaningRule"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Cleaning rule delete body"
+        required: true
+        schema:
+          $ref: "#/definitions/DeleteCleaningRule"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+  /rules/missing:
+    post:
+      tags: 
+      - "missingValuesRules"
+      summary: "Update a missing value rule"
+      description: ""
+      operationId: "updateMissingValueRule"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Missing values rule update body"
+        required: true
+        schema:
+          $ref: "#/definitions/UpdateMissingRule"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+  /clean:
+    post:
+      tags: 
+      - "clean"
+      summary: "Clean data"
+      description: ""
+      operationId: "cleanData"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Clean data body"
+        required: true
+        schema:
+          $ref: "#/definitions/Clean"
+      responses:
+        200:
+          description: OK
+        500:
+          description: Internal Server Error
+definitions:
+  Login:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+        default: "aegis"
+      password:
+        type: "string"
+        default: "aegis"
+  LoginInvalid:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int64"
+        default: 401
+      message:
+        type: "string"
+        default: "Invalid credentials"
+  LoginSuccess:
+    type: "object"
+    properties:
+      access_token:
+        type: "string"
+  AddProvider:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+  UpdateProvider:
+    type: "object"
+    properties:
+      oldName:
+        type: "string"
+      newName:
+        type: "string"
+  AddDataset:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+      dataset:
+        type: "string"
+  UpdateDataset:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+      oldName:
+        type: "string"
+      newName:
+        type: "string"
+  AddVariable:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+      dataset:
+        type: "string"
+      variables:
+        type: "array"
+        items:
+          type: "string"
+  UpdateVariable:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+      dataset:
+        type: "string"
+      oldName:
+        type: "string"
+      newName:
+        type: "string"
+  DeleteVariable:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+      dataset:
+        type: "string"
+      variable:
+        type: "string"
+  AddValidationRule:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+      dataset:
+        type: "string"
+      variable:
+        type: "string"
+      rule:
+        type: "object"
+        properties:
+          ruleName:
+            type: "string"
+          method:
+            type: "string"
+            enum: ["RANGE", "OUTLIER", "PRE_DEFINED_VALUE"]
+          args:
+            type: "string"
+  DeleteValidationRule:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+      dataset:
+        type: "string"
+      variable:
+        type: "string"
+      rule:
+        type: "string"
+  AddCleaningRule:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+      dataset:
+        type: "string"
+      variable:
+        type: "string"
+      validationRule:
+        type: "string"
+      rule:
+        type: "object"
+        properties:
+          ruleName:
+            type: "string"
+          method:
+            type: "string"
+            enum: ["REPLACE_WITH_VALUE", "REPLACE_WITH_MEAN", "REPLACE_WITH_MIN", "REPLACE_WITH_MAX", "REPLACE_WITH_MEDIAN", "REPLACE_WITH_MOST_FREQUENT", "NONE", "DROP_ROW"]
+          args:
+            type: "string"
+  DeleteCleaningRule:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+      dataset:
+        type: "string"
+      variable:
+        type: "string"
+      rule:
+        type: "string"
+  UpdateMissingRule:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+      dataset:
+        type: "string"
+      rules:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            variable:
+              type: "string"
+            method:
+              type: "string"
+              enum: ["DROP_NA", "FILL_WITH_VALUE", "FILL_WITH_LAST_OBSERVATION_CARRIED_FORWARD", "FILL_WITH_NEXT_OBSERVATION_CARRIED_BACKWARD", "FILL_WITH_MEAN", "FILL_WITH_MEDIAN", "FILL_WITH_MOST_FREQUENT", "FILL_WITH_MAX", "FILL_WITH_MIN"]
+            args:
+              type: "string"
+  Clean:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+      dataset:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          type: object
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
