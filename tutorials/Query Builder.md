@@ -93,11 +93,7 @@ You may continue adding new filters after that point. The list will show both wh
 
 By pressing the "Refresh temp" button, you will get the first 40 lines of the tempDF.
 
-This is useful both when you first load a file
-
-![Temp Preview 1](query-builder-screenshots/QB6.PNG)
-
-but also to review the result of applying some filters 
+This is useful both when you first load a file but also to review the result of applying some filters 
 
 ![Temp Preview 2](query-builder-screenshots/QB15.PNG)
 
